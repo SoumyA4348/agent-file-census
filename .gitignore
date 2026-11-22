@@ -1,0 +1,8 @@
+data/
+lab/
+__pycache__/
+.pytest_cache/
+*.sqlite
+*.sqlite-*
+*.log
+notes/
