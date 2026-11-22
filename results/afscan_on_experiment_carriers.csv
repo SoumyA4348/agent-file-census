@@ -1,0 +1,13 @@
+payload,channel,verdict,rules,payload_survives_strip
+exfil,visible,medium,conceal_user,True
+exfil,comment,high,html_comment,False
+exfil,tags,high,unicode_tags,False
+rce,visible,medium,conceal_user,True
+rce,comment,high,html_comment,False
+rce,tags,high,unicode_tags,False
+inject,visible,medium,conceal_user,True
+inject,comment,high,html_comment,False
+inject,tags,high,unicode_tags,False
+marker,visible,medium,conceal_user,True
+marker,comment,high,html_comment,False
+marker,tags,high,unicode_tags,False

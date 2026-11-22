@@ -1,0 +1,96 @@
+stratum,first_label,final_label,reason
+high,benign_hidden,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,fp,suspicious,anti-injection guidance quotes attack phrases (codebook: quotes attacks)
+high,fp,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,fp,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,fp,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,fp,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,fp,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,fp,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,fp,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,fp,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,fp,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,fp,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,fp,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,fp,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,fp,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,fp,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,fp,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,fp,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,fp,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,fp,suspicious,orchestrator skill launches agents with bypassPermissions + background polling (talks agents out of safety rules)
+high,fp,suspicious,orchestrator skill launches agents with bypassPermissions + background polling (talks agents out of safety rules)
+high,fp,suspicious,orchestrator skill launches agents with bypassPermissions + background polling (talks agents out of safety rules)
+high,fp,suspicious,orchestrator skill launches agents with bypassPermissions + background polling (talks agents out of safety rules)
+high,fp,suspicious,orchestrator skill launches agents with bypassPermissions + background polling (talks agents out of safety rules)
+high,fp,suspicious,orchestrator skill launches agents with bypassPermissions + background polling (talks agents out of safety rules)
+high,fp,suspicious,skill scanner lists injection/exfil red-flag payloads
+high,not_instruction,benign_hidden,hidden comments in agent prompt file steer generation harmlessly
+high,not_instruction,benign_hidden,hidden comments in agent prompt file steer generation harmlessly
+high,not_instruction,benign_hidden,hidden comments in agent prompt file steer generation harmlessly
+high,not_instruction,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,not_instruction,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,not_instruction,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,not_instruction,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,not_instruction,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,not_instruction,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,not_instruction,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,not_instruction,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,not_instruction,suspicious,high-stratum Codex check: security/red-team/scanner doc quoting attack payloads (codebook: quotes attacks)
+high,not_instruction,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+high,not_instruction,suspicious,red-team guide with XXE exfil payloads (some in HTML comments)
+high,not_instruction,suspicious,security scan skill quotes injection patterns incl. hidden-comment examples
+med:backdoor_code,fp,suspicious,IoT pentest skill with root backdoor / persistence commands
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:backdoor_code,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:conceal_silent,fp,malicious,FIXTURE: public skill-security benchmark (silently copy passport files); outside rater subset; found by blob-sha match
+med:conceal_silent,fp,suspicious,malware-detection guide describing silent folderOpen droppers
+med:conceal_silent,fp,suspicious,silently run script then self-delete section; benign product but concealment + self-modification
+med:exec_hidden,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:exfil_endpoint,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:exfil_endpoint,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:exfil_endpoint,not_instruction,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:new_instructions,fp,suspicious,FIXTURE-sourced (benchmark false-advertise variant); content = anti-injection guidance quoting attacks; outside rater subset
+med:new_instructions,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:new_instructions,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:new_instructions,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:new_instructions,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:new_instructions,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:override,fp,malicious,FIXTURE: public skill-security benchmark (injected guardrail override)
+med:override,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:override_i18n,fp,suspicious,llms.txt indexing DAN / ignore-all-instructions jailbreak prompts
+med:override_i18n,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:read_secrets,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:read_secrets,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:read_secrets,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:read_secrets,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:read_secrets,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:read_secrets,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:read_secrets,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:weaken_security,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:weaken_security,fp,suspicious,"rater-1 self-sweep (keyword screen, not Codex-checked): offensive-security / detection doc quoting attack payloads or techniques"
+med:weaken_security,fp,suspicious,tells agent to use --dangerously-bypass-approvals-and-sandbox when writes are blocked
+med:weaken_security,not_instruction,suspicious,template recommends defaultMode bypassPermissions + Write(//**)
+med:zero_width_run,not_instruction,malicious,POC: zero-width binary-encoded hidden memory-persistence injection with harmless signature payload (missed by both raters and scanner decode)
