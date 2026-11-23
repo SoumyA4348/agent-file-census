@@ -1,7 +1,8 @@
 """Independent model rater: Codex CLI labels the rater-2 subset blind (never sees rater-1 labels).
 python -I src/llm_rater.py           -> rater-2 subset: notes/rater_codex/ + notes/afc-rater-codex-0.3.1.csv
-python -I src/llm_rater.py full      -> high+med strata outside the subset: notes/rater_codex_full/ + notes/afc-rater-codex-full-0.3.1.csv"""
-import csv, json, pathlib, re, shutil, subprocess, sys, tempfile
+python -I src/llm_rater.py full      -> high+med strata outside the subset: notes/rater_codex_full/ + notes/afc-rater-codex-full-0.3.1.csv
+Add --copilot to use GitHub Copilot CLI (Auto model; fresh COPILOT_HOME, no tools) instead: rater_copilot[_full]/, afc-rater-copilot[-full]-0.3.1.csv"""
+import csv, json, os, pathlib, re, shutil, subprocess, sys, tempfile
 from concurrent.futures import ThreadPoolExecutor
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "notes" / "rater_codex"
@@ -51,6 +52,8 @@ def run_batch(k, batch):
     if dest.exists():
         return k, "cached"
     prompt = GUIDE + "\n\n" + "\n\n".join(render(d) for d in batch) + "\n\nNow reply with the JSON array for these " + str(len(batch)) + " items."
+    if RATER == "copilot":
+        return run_copilot(k, batch, dest, prompt)
     with tempfile.TemporaryDirectory() as ws:
         last = pathlib.Path(ws) / "last.txt"
         argv = [shutil.which("codex"), "exec", "--skip-git-repo-check", "--ephemeral", "-s", "read-only", "-C", ws, "-o", str(last), "-"]
@@ -68,23 +71,79 @@ def run_batch(k, batch):
     dest.write_text(json.dumps(rows, indent=1), encoding="utf-8")
     return k, "ok"
 
+RATER = "copilot" if "--copilot" in sys.argv else "codex"
+
+
+def run_copilot(k, batch, dest, prompt):
+    """Copilot's free plan only offers Auto routing; keep answers from Microsoft's MAI model (a vendor independent of
+    Codex/OpenAI and of rater 1) and retry when Auto routes elsewhere."""
+    for attempt in range(8):
+        k2, status = _copilot_once(k, batch, dest, prompt)
+        if not status.startswith(("other-model", "id mismatch", "no JSON")):
+            return k2, status
+    return k, status
+
+
+def _copilot_once(k, batch, dest, prompt):
+    home = ROOT / "lab" / "homes" / "copilot_rater"
+    home.mkdir(parents=True, exist_ok=True)
+    env = dict(os.environ, COPILOT_HOME=str(home))
+    with tempfile.TemporaryDirectory() as ws:
+        r = subprocess.run([shutil.which("copilot"), "--model", "auto", "--no-auto-update", "--disable-builtin-mcps",
+                            "--available-tools", "none", "--output-format", "json"], input=prompt.encode("utf-8"),
+                           capture_output=True, timeout=900, cwd=ws, env=env)
+    txt, model = "", ""
+    for line in r.stdout.decode("utf-8", "replace").splitlines():
+        try:
+            o = json.loads(line)
+        except ValueError:
+            continue
+        d = o.get("data") or {}
+        if o.get("type") == "model.call_start" and not model:
+            model = d.get("model", "")
+        if o.get("type") == "assistant.message" and d.get("content"):
+            txt = d["content"]
+    m = re.search(r"\[.*\]", txt, re.S)
+    try:
+        rows = json.loads(m.group(0)) if m else None
+    except ValueError:
+        rows = None
+    if not rows:
+        (OUT / f"batch_{k:02d}.err.txt").write_bytes(r.stdout[-4000:] + b"\n---\n" + r.stderr[-4000:])
+        return k, f"no JSON (rc {r.returncode})"
+    want = {d["id"] for d in batch}
+    if {x.get("id") for x in rows} != want:
+        return k, f"id mismatch {len({x.get('id') for x in rows} & want)}/{len(want)}"
+    if not model.startswith("mai-"):
+        return k, f"other-model {model}"
+    for x in rows:
+        x["model"] = model
+    dest.write_text(json.dumps(rows, indent=1), encoding="utf-8")
+    return k, "ok " + model
+
+
 def main():
     global OUT
-    full = sys.argv[1:] == ["full"]
+    full = "full" in sys.argv[1:]
+    OUT = ROOT / "notes" / f"rater_{RATER}"
     if full:
-        OUT = ROOT / "notes" / "rater_codex_full"
+        OUT = ROOT / "notes" / f"rater_{RATER}_full"
     OUT.mkdir(parents=True, exist_ok=True)
     D = full_items() if full else items()
     batches = [D[i:i + 10] for i in range(0, len(D), 10)]
+    if "--missing" in sys.argv:   # retry items no full batch could cover, 3 at a time (batch ids from 1000)
+        have = {x["id"] for f in OUT.glob("batch_*.json") for x in json.loads(f.read_text(encoding="utf-8"))}
+        miss = [d for d in D if d["id"] not in have]
+        batches = [[] for _ in range(1000)] + [miss[i:i + 3] for i in range(0, len(miss), 3)]
     with ThreadPoolExecutor(3) as ex:
-        for k, s in ex.map(lambda kb: run_batch(*kb), enumerate(batches)):
+        for k, s in ex.map(lambda kb: run_batch(*kb), [kb for kb in enumerate(batches) if kb[1]]):
             print(f"batch {k}: {s}", flush=True)
     rows = {}
     for f in sorted(OUT.glob("batch_*.json")):
         for x in json.loads(f.read_text(encoding="utf-8")):
             rows[x["id"]] = x
     tool = {d["id"]: d["tool"] for d in D}
-    with open(ROOT / "notes" / ("afc-rater-codex-full-0.3.1.csv" if full else "afc-rater-codex-0.3.1.csv"), "w", newline="", encoding="utf-8") as fh:
+    with open(ROOT / "notes" / (f"afc-rater-{RATER}-full-0.3.1.csv" if full else f"afc-rater-{RATER}-0.3.1.csv"), "w", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh); w.writerow(["sha1_git", "tool", "label", "note"])
         for d in D:
             if d["id"] in rows:

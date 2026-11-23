@@ -1,0 +1,34 @@
+name: afscan agent-file check
+description: Flag hidden or malicious instructions in AI coding-agent files (CLAUDE.md, AGENTS.md, rules, skills).
+branding:
+  icon: shield
+  color: red
+inputs:
+  fail-on:
+    description: "Fail the step when any file reaches this verdict: low, medium, high or never."
+    default: high
+  paths:
+    description: "Space-separated glob patterns to scan. Empty = the common agent instruction file names."
+    default: ""
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - shell: bash
+      env:
+        AFSCAN_FAIL_ON: ${{ inputs.fail-on }}
+        AFSCAN_PATHS: ${{ inputs.paths }}
+      run: |
+        shopt -s globstar nullglob nocaseglob
+        if [ -z "$AFSCAN_PATHS" ]; then
+          AFSCAN_PATHS="**/CLAUDE.md **/AGENTS.md **/GEMINI.md **/CONVENTIONS.md **/.cursorrules **/.windsurfrules
+            **/.clinerules **/.cursor/rules/** **/.github/copilot-instructions.md **/.github/instructions/*.md
+            **/.claude/**/*.md **/SKILL.md **/.kiro/steering/*.md **/.roo/**/*.md **/.agents/**/*.md"
+        fi
+        files=()
+        for pat in $AFSCAN_PATHS; do for f in $pat; do [ -f "$f" ] && files+=("$f"); done; done
+        if [ ${#files[@]} -eq 0 ]; then echo "afscan: no agent files found"; exit 0; fi
+        echo "afscan: checking ${#files[@]} files"
+        python "$GITHUB_ACTION_PATH/src/afscan.py" --github --fail-on "$AFSCAN_FAIL_ON" "${files[@]}"

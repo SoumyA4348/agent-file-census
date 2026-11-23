@@ -1,0 +1,278 @@
+kind,tool,platform,blobs,origins
+agent,agents_md,github.com,59518,46861
+agent,agents_md,other,534,378
+agent,agents_md,gitlab.com,184,92
+agent,agents_md,self-hosted gitlab,103,129
+agent,agents_md,bitbucket.org,69,54
+agent,agents_md,codeberg.org,63,30
+agent,aider,github.com,1768,30544
+agent,aider,gitlab.com,125,188
+agent,aider,other,51,140
+agent,aider,bitbucket.org,45,119
+agent,aider,self-hosted gitlab,27,18
+agent,aider,codeberg.org,10,11
+agent,augment,github.com,53,5279
+agent,augment,bitbucket.org,2,14
+agent,augment,self-hosted gitlab,1,3
+agent,augment,gitlab.com,1,32
+agent,augment,codeberg.org,1,1
+agent,augment,other,1,14
+agent,claude,github.com,85066,63118
+agent,claude,other,485,361
+agent,claude,gitlab.com,125,101
+agent,claude,self-hosted gitlab,112,114
+agent,claude,bitbucket.org,94,90
+agent,claude,codeberg.org,51,33
+agent,cline,github.com,433,10805
+agent,cline,other,7,65
+agent,cline,gitlab.com,6,41
+agent,cline,codeberg.org,3,7
+agent,cline,bitbucket.org,3,15
+agent,cline,self-hosted gitlab,2,5
+agent,copilot,github.com,6561,19862
+agent,copilot,other,39,116
+agent,copilot,codeberg.org,15,10
+agent,copilot,gitlab.com,11,48
+agent,copilot,self-hosted gitlab,8,43
+agent,copilot,bitbucket.org,7,22
+agent,cursor,github.com,21196,23046
+agent,cursor,gitlab.com,139,89
+agent,cursor,other,98,139
+agent,cursor,bitbucket.org,49,50
+agent,cursor,codeberg.org,29,12
+agent,cursor,self-hosted gitlab,18,38
+agent,gemini,github.com,3650,18619
+agent,gemini,other,125,168
+agent,gemini,gitlab.com,12,49
+agent,gemini,bitbucket.org,12,27
+agent,gemini,self-hosted gitlab,7,43
+agent,gemini,codeberg.org,6,8
+agent,goose,github.com,64,10373
+agent,goose,gitlab.com,7,40
+agent,goose,other,3,61
+agent,goose,bitbucket.org,3,16
+agent,goose,codeberg.org,2,6
+agent,goose,self-hosted gitlab,2,5
+agent,llms_txt,github.com,5577,9006
+agent,llms_txt,codeberg.org,6,4
+agent,llms_txt,other,5,20
+agent,llms_txt,gitlab.com,4,38
+agent,llms_txt,self-hosted gitlab,2,4
+agent,llms_txt,bitbucket.org,2,14
+agent,replit,github.com,360,5963
+agent,replit,bitbucket.org,5,16
+agent,replit,gitlab.com,3,36
+agent,replit,other,2,18
+agent,replit,self-hosted gitlab,1,3
+agent,replit,codeberg.org,1,1
+agent,roo,github.com,233,1098
+agent,roo,gitlab.com,2,2
+agent,roo,other,1,5
+agent,roo,bitbucket.org,1,1
+agent,skill,github.com,52198,14968
+agent,skill,gitlab.com,132,55
+agent,skill,other,132,48
+agent,skill,codeberg.org,55,4
+agent,skill,bitbucket.org,19,19
+agent,skill,self-hosted gitlab,16,9
+agent,warp,github.com,478,12330
+agent,warp,other,9,74
+agent,warp,bitbucket.org,5,18
+agent,warp,gitlab.com,5,40
+agent,warp,codeberg.org,4,9
+agent,warp,self-hosted gitlab,2,5
+agent,windsurf,github.com,421,11488
+agent,windsurf,gitlab.com,6,38
+agent,windsurf,codeberg.org,6,7
+agent,windsurf,other,6,66
+agent,windsurf,bitbucket.org,4,17
+agent,windsurf,self-hosted gitlab,3,6
+config,.agents,github.com,17,5319
+config,.agents,gitlab.com,1,32
+config,.agents,bitbucket.org,1,13
+config,.agents,codeberg.org,1,1
+config,.agents,self-hosted gitlab,1,3
+config,.agents,other,1,14
+config,.aider.conf.yml,github.com,248,5413
+config,.aider.conf.yml,bitbucket.org,3,15
+config,.aider.conf.yml,gitlab.com,2,33
+config,.aider.conf.yml,self-hosted gitlab,2,4
+config,.aider.conf.yml,codeberg.org,1,1
+config,.aider.conf.yml,other,1,14
+config,.claude,github.com,33,5323
+config,.claude,self-hosted gitlab,1,3
+config,.claude,gitlab.com,1,32
+config,.claude,codeberg.org,1,1
+config,.claude,bitbucket.org,1,13
+config,.claude,other,1,14
+config,.codex,github.com,21,5331
+config,.codex,other,2,15
+config,.codex,bitbucket.org,2,14
+config,.codex,gitlab.com,2,33
+config,.codex,self-hosted gitlab,1,3
+config,.codex,codeberg.org,1,1
+config,.continue,other,2,18
+config,.continue,github.com,2,5453
+config,.continue,gitlab.com,2,35
+config,.continue,self-hosted gitlab,1,3
+config,.continue,bitbucket.org,1,13
+config,.cursor,github.com,20,5311
+config,.cursor,gitlab.com,2,33
+config,.cursor,other,2,15
+config,.cursor,codeberg.org,1,1
+config,.cursor,bitbucket.org,1,13
+config,.cursor,self-hosted gitlab,1,3
+config,.gemini,github.com,12,5511
+config,.gemini,other,3,19
+config,.gemini,gitlab.com,2,35
+config,.gemini,self-hosted gitlab,1,3
+config,.gemini,bitbucket.org,1,13
+config,.gemini,codeberg.org,1,1
+config,.kiro,other,1,4
+config,.kiro,gitlab.com,1,3
+config,.kiro,github.com,1,223
+config,.opencode,github.com,5,56
+config,.opencode,codeberg.org,1,1
+config,.windsurf,github.com,5,5
+config,claude_settings_local,github.com,12280,16140
+config,claude_settings_local,other,38,53
+config,claude_settings_local,bitbucket.org,24,39
+config,claude_settings_local,gitlab.com,12,56
+config,claude_settings_local,codeberg.org,5,5
+config,claude_settings_local,self-hosted gitlab,5,8
+config,copilot_setup,github.com,62,5531
+config,copilot_setup,other,3,19
+config,copilot_setup,gitlab.com,2,35
+config,copilot_setup,bitbucket.org,1,13
+config,copilot_setup,self-hosted gitlab,1,3
+config,devcontainer,github.com,10655,130920
+config,devcontainer,gitlab.com,339,955
+config,devcontainer,other,120,116
+config,devcontainer,self-hosted gitlab,63,106
+config,devcontainer,bitbucket.org,34,102
+config,devcontainer,codeberg.org,4,9
+config,mcp,github.com,3378,12661
+config,mcp,other,25,45
+config,mcp,gitlab.com,17,62
+config,mcp,bitbucket.org,6,21
+config,mcp,self-hosted gitlab,5,19
+config,mcp,codeberg.org,2,2
+config,replit_cfg,github.com,24052,467524
+config,replit_cfg,gitlab.com,555,1855
+config,replit_cfg,bitbucket.org,119,253
+config,replit_cfg,other,64,113
+config,replit_cfg,codeberg.org,43,58
+config,replit_cfg,self-hosted gitlab,6,10
+config,settings,github.com,81933,184434
+config,settings,gitlab.com,1651,1578
+config,settings,bitbucket.org,776,716
+config,settings,other,686,550
+config,settings,self-hosted gitlab,81,59
+config,settings,codeberg.org,56,34
+config,vscode_tasks,github.com,7345,25233
+config,vscode_tasks,gitlab.com,145,194
+config,vscode_tasks,other,63,125
+config,vscode_tasks,bitbucket.org,54,76
+config,vscode_tasks,self-hosted gitlab,9,11
+config,vscode_tasks,codeberg.org,2,2
+hop,.agents,github.com,4811,11218
+hop,.agents,other,22,66
+hop,.agents,gitlab.com,11,43
+hop,.agents,codeberg.org,10,7
+hop,.agents,bitbucket.org,4,16
+hop,.agents,self-hosted gitlab,2,5
+hop,.amazonq,github.com,229,5590
+hop,.amazonq,codeberg.org,8,1
+hop,.amazonq,other,2,15
+hop,.amazonq,bitbucket.org,2,14
+hop,.amazonq,self-hosted gitlab,2,4
+hop,.amazonq,gitlab.com,1,32
+hop,.claude,github.com,76026,34929
+hop,.claude,other,236,169
+hop,.claude,gitlab.com,146,89
+hop,.claude,bitbucket.org,73,58
+hop,.claude,codeberg.org,28,15
+hop,.claude,self-hosted gitlab,24,52
+hop,.codex,github.com,3369,10928
+hop,.codex,other,7,60
+hop,.codex,gitlab.com,4,39
+hop,.codex,bitbucket.org,3,16
+hop,.codex,self-hosted gitlab,2,5
+hop,.codex,codeberg.org,2,6
+hop,.continue,github.com,369,5536
+hop,.continue,gitlab.com,2,33
+hop,.continue,other,2,15
+hop,.continue,self-hosted gitlab,1,3
+hop,.continue,bitbucket.org,1,13
+hop,.cursor,github.com,21905,16284
+hop,.cursor,gitlab.com,126,80
+hop,.cursor,other,75,63
+hop,.cursor,bitbucket.org,41,31
+hop,.cursor,codeberg.org,21,5
+hop,.cursor,self-hosted gitlab,16,4
+hop,.gemini,github.com,2833,12935
+hop,.gemini,other,91,75
+hop,.gemini,gitlab.com,12,59
+hop,.gemini,bitbucket.org,5,22
+hop,.gemini,self-hosted gitlab,3,35
+hop,.gemini,codeberg.org,2,2
+hop,.junie,github.com,674,11314
+hop,.junie,self-hosted gitlab,62,10
+hop,.junie,gitlab.com,17,45
+hop,.junie,other,10,64
+hop,.junie,bitbucket.org,3,15
+hop,.junie,codeberg.org,2,6
+hop,.kiro,github.com,2257,6169
+hop,.kiro,other,5,19
+hop,.kiro,codeberg.org,3,1
+hop,.kiro,gitlab.com,2,35
+hop,.kiro,bitbucket.org,1,13
+hop,.kiro,self-hosted gitlab,1,3
+hop,.opencode,github.com,4462,9490
+hop,.opencode,gitlab.com,37,53
+hop,.opencode,codeberg.org,10,1
+hop,.opencode,other,6,28
+hop,.opencode,self-hosted gitlab,4,7
+hop,.opencode,bitbucket.org,2,17
+hop,.roo,github.com,1259,7940
+hop,.roo,self-hosted gitlab,8,5
+hop,.roo,other,7,22
+hop,.roo,gitlab.com,7,45
+hop,.roo,bitbucket.org,2,17
+hop,.windsurf,github.com,1479,6150
+hop,.windsurf,other,4,20
+hop,.windsurf,gitlab.com,3,36
+hop,.windsurf,bitbucket.org,1,13
+hop,.windsurf,self-hosted gitlab,1,3
+hop,cline,github.com,989,5813
+hop,cline,gitlab.com,6,34
+hop,cline,other,5,17
+hop,cline,self-hosted gitlab,2,4
+hop,cline,bitbucket.org,1,13
+hop,cline,codeberg.org,1,1
+hop,cursor,github.com,76,246
+hop,cursor,gitlab.com,50,4
+hop,cursor,other,1,4
+hop,devcontainer,github.com,16,5506
+hop,devcontainer,gitlab.com,4,36
+hop,devcontainer,other,2,18
+hop,devcontainer,self-hosted gitlab,1,3
+hop,devcontainer,bitbucket.org,1,13
+hop,llms_txt,gitlab.com,2,33
+hop,llms_txt,github.com,2,5260
+hop,llms_txt,bitbucket.org,1,13
+hop,llms_txt,self-hosted gitlab,1,3
+hop,llms_txt,other,1,14
+hop,replit_cfg,github.com,6,36423
+hop,replit_cfg,gitlab.com,3,186
+hop,replit_cfg,bitbucket.org,2,29
+hop,replit_cfg,other,2,7
+hop,replit_cfg,codeberg.org,1,5
+hop,settings,github.com,21,2600
+hop,settings,gitlab.com,3,23
+hop,settings,other,1,4
+hop,vscode_tasks,github.com,4,5645
+hop,vscode_tasks,gitlab.com,2,33
+hop,vscode_tasks,bitbucket.org,2,14
+hop,vscode_tasks,self-hosted gitlab,1,3
+hop,vscode_tasks,other,1,14

@@ -1,0 +1,7 @@
+- id: afscan
+  name: afscan (hidden or malicious instructions in agent files)
+  description: Blocks commits that add hidden or malicious instructions to AI coding-agent files.
+  entry: afscan --fail-on high
+  language: python
+  pass_filenames: true
+  files: (?i)(^|/)(CLAUDE|AGENTS|GEMINI|CONVENTIONS|SKILL)\.md$|(^|/)\.(cursorrules|windsurfrules|clinerules)$|(^|/)\.cursor/rules/|(^|/)\.github/(copilot-instructions\.md|instructions/)|(^|/)\.(claude|kiro|roo|agents)/.*\.md$
