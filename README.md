@@ -31,6 +31,8 @@ Main results:
 Single file, standard library only, Python 3.10+.
 
 ```
+pip install git+https://github.com/SoumyA4348/agent-file-census   # installs the `afscan` command
+afscan --fail-on high CLAUDE.md AGENTS.md .cursorrules    # exit 1 if any file reaches the verdict
 python src/afscan.py CLAUDE.md AGENTS.md .cursorrules     # verdict and rules per file
 python src/afscan.py --json SKILL.md                       # one JSON line per file
 python src/afscan.py --strip CLAUDE.md CLAUDE.clean.md     # copy without hidden text
@@ -43,9 +45,28 @@ report = afscan.scan_text(text)     # {"verdict": "high" | "medium" | "low" | "i
 clean = afscan.strip(text)          # removes tag characters, zero-width runs, bidi controls, comments, hidden HTML
 ```
 
+In CI, as a GitHub Action (scans the common agent file names unless `paths` is set; `--github` annotations):
+
+```yaml
+- uses: actions/checkout@v4
+- uses: SoumyA4348/agent-file-census@v0.3.2
+  with:
+    fail-on: high        # low | medium | high | never
+```
+
+As a pre-commit hook:
+
+```yaml
+repos:
+  - repo: https://github.com/SoumyA4348/agent-file-census
+    rev: v0.3.2
+    hooks:
+      - id: afscan
+```
+
 It looks for two things:
 
-- **Hidden text:** Unicode tag characters (decoded), zero-width runs, variation-selector runs, bidirectional
+- **Hidden text:** Unicode tag characters (decoded), zero-width runs (binary encodings decoded), variation-selector runs, bidirectional
   controls, HTML and markdown comments, hidden HTML, empty links, long image alt text and base64 text.
 - **Risky instructions:** exfiltration, reads of secret paths, remote or hidden code execution, weakened security
   controls, concealment from the user, instruction overrides, dependency injection and backdoored code, in eight
@@ -76,6 +97,14 @@ python src/corpus.py fetch --threads 24        # download and verify every blob
 python src/corpus.py scan --workers 4          # afscan + per-file features
 python src/tables.py --ver 0.3.1               # paper tables
 python src/test_sample.py draw --ver 0.3.1     # pre-registered test sample (seed 20261120)
+python src/zw_rescan.py                        # re-check zero-width files with the 0.3.2 decoder
+python src/configs.py run --workers 4          # auto-run/approval settings and credential formats (types only)
+python src/configs.py report                   # aggregate counts per setting (unique files)
+python src/configs.py secrets                  # distinct credential tokens per type (salted hashes, no values)
+python src/origin.py needles                   # origin: parent dirs of census entries
+python src/origin.py scan revision             # then release, snapshot_branch, ovs (and revdate for dates)
+python src/origin.py join                      # DuckDB: file -> repositories, hosts and first commit date
+python src/origin.py report                    # results/origin_*.csv (aggregates only)
 ```
 
 The full walk reads about a quarter of a 29.8 TB table; it was run on four small cloud machines.
@@ -103,14 +132,23 @@ Kilo and Amp; Aider, Goose, Crush and Qwen Code run on a local Ollama model (qwe
 README control, scanner verdicts by platform, labels per test stratum (counts), every label change made in
 adjudication with its reason (no hashes), per-run outcomes of the agent experiment (all 11 agents, including the
 three local-model agents left out of the paper's comparison and the first Antigravity run without pre-approvals),
-channel visibility, and afscan's verdicts on the experiment's payload files.
+channel visibility, and afscan's verdicts on the experiment's payload files. It also holds the configuration
+counts (`configs_settings.csv`, `credentials_by_type.csv`: types and counts only) and the origin join
+(`origin_*.csv`: coverage, hosting platforms, spread across repositories and first-seen timelines).
+
+`results/test_sample_labels.csv` is the labelled test sample as a benchmark: all 1,587 files with their Software
+Heritage `sha1_git`, stratum, agent platform, final label (`fp`, `not_instruction`, `benign_hidden`, `suspicious`,
+`malicious`) and, for the 27 malicious files, whether each is a test fixture, a public benchmark sample or a proof of
+concept. Contents can be fetched from the Software Heritage archive by hash. Labeller notes are not released.
 
 `src/llm_rater.py` is the blind second rater (Codex CLI) used for the agreement check.
 
 ## Ethics
 
-The census reports aggregates only and names no repository, author or file. File hashes of flagged files are not
-released. The corpus contains committed secrets; they were never used and are not released.
+The census reports aggregates and names no repository or author. The only file-level data is the benchmark's
+hashes; every malicious file in it is a fixture, benchmark sample or proof of concept, none found in active use. The
+corpus contains committed secrets; they were never used and are not released. All 11 exposed GitHub tokens were
+submitted to GitHub's credential revocation API on 2026-11-23.
 
 ## Tests
 

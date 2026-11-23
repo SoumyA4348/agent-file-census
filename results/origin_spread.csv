@@ -1,0 +1,4 @@
+kind,blobs_with_origin,median_origins,p90_origins,max_origins,blobs_in_10plus_origins
+agent,236139,1.0,2.0,6247,1715
+config,142430,1.0,3.0,49148,4664
+hop,118524,1.0,2.0,36235,645

@@ -25,7 +25,7 @@ import re
 import sys
 import unicodedata
 
-__version__ = "0.3.1"
+__version__ = "0.3.2"
 SEV = {"info": 0, "low": 1, "medium": 2, "high": 3}
 
 # ---------------- Layer 1: hidden channels ----------------
@@ -259,6 +259,27 @@ def mixed_script_words(text: str, limit=5):
     return hits
 
 
+ZW_BITS = {"​", "‌", "‍", "⁠", "﻿"}
+
+
+def zw_decode(run: str) -> str:
+    """Zero-width binary encoding (e.g. U+200B/U+200C or U+200C/U+200D as bits): the two most common characters
+    are tried as 0/1 in both orders, 8 bits per character, UTF-8; returns the decoded text if it is readable."""
+    from collections import Counter
+    top = [c for c, _ in Counter(c for c in run if c in ZW_BITS).most_common(2)]
+    if len(top) < 2:
+        return ""
+    best = ""
+    for zero, one in ((top[0], top[1]), (top[1], top[0])):
+        bits = "".join("0" if c == zero else "1" for c in run if c in (zero, one))
+        raw = bytes(int(bits[i:i + 8], 2) for i in range(0, len(bits) - 7, 8))
+        dec = raw.decode("utf-8", "replace")
+        ok = sum(ch.isprintable() or ch in "\n\t" for ch in dec) / max(len(dec), 1)
+        if ok > 0.9 and len(dec) >= 3 and re.search(r"[A-Za-z]{3}", dec) and len(dec) > len(best):
+            best = dec
+    return best
+
+
 def hidden_channels(text: str) -> list:
     """[(channel, body)] for text a rendered markdown view does not show (decoded where possible)."""
     hidden = []
@@ -267,16 +288,19 @@ def hidden_channels(text: str) -> list:
         dec = "".join(chr(ord(c) - 0xE0000) for c in m.group(0) if 0xE0020 <= ord(c) <= 0xE007E)
         if len(dec) >= 3:
             hidden.append(("unicode_tags", dec))
-    # zero-width runs: try binary decoding (ZWSP/ZWNJ as bits) as well
+    # zero-width runs: try binary decoding (any two zero-width characters as 0/1, both orders) as well
     for m in ZW_RUN.finditer(text):
         run = m.group(0)
-        if len(run) >= 8 and set(run) <= {"​", "‌", "‍", "⁠", "﻿"}:
-            bits = "".join("0" if c == "​" else "1" for c in run if c in "​‌")
-            dec = "".join(chr(int(bits[i:i + 8], 2)) for i in range(0, len(bits) - 7, 8))
-            dec = dec if dec.isprintable() and len(dec) >= 3 else ""
+        if len(run) >= 8 and set(run) <= ZW_BITS:
+            dec = zw_decode(run)
             hidden.append(("zero_width_run", dec or f"[{len(run)} zero-width chars]"))
         elif not EMOJI.search(text[max(0, m.start() - 2):m.end() + 2]):
             hidden.append(("zero_width_run", f"[{len(run)} zero-width chars]"))
+    allzw = "".join(c for c in text if c in ZW_BITS)
+    if len(allzw) >= 64 and len(ZW_RUN.findall(text)) > 1:   # one message split over several runs
+        dec = zw_decode(allzw)
+        if dec and not any(dec == h[1] for h in hidden):
+            hidden.append(("zero_width_run", dec))
     for m in VS_RUN.finditer(text):
         hidden.append(("variation_selector_run", f"[{len(m.group(0))} variation selectors]"))
     for m in HTML_COMMENT.finditer(text):
@@ -439,16 +463,36 @@ def main(argv):
         else:
             sys.stdout.write(out)
         return
-    as_json = "--json" in argv
-    for p in [a for a in argv if a != "--json"]:
+    # afscan.py [--json] [--github] [--fail-on low|medium|high|never] FILE...   (exit 1 if a file reaches --fail-on)
+    order = {"clean": 0, "info": 0, "symlink": 0, "low": 1, "medium": 2, "high": 3, "never": 99}
+    fail_on, files, i = "never", [], 0
+    while i < len(argv):
+        if argv[i] == "--fail-on" and i + 1 < len(argv):
+            fail_on, i = argv[i + 1], i + 2
+            continue
+        if not argv[i].startswith("--"):
+            files.append(argv[i])
+        i += 1
+    as_json, gh, worst = "--json" in argv, "--github" in argv, 0
+    for p in files:
         with open(p, "rb") as f:
             r = scan_bytes(f.read(), p)
+        worst = max(worst, order.get(r["verdict"], 0))
+        rules = ",".join(sorted({f["rule"] for f in r["flags"] if f["sev"] != "info"})) or "-"
         if as_json:
             print(json.dumps(r, ensure_ascii=False))
-        else:
-            rules = ",".join(sorted({f["rule"] for f in r["flags"] if f["sev"] != "info"})) or "-"
+        elif gh and order.get(r["verdict"], 0) >= 1:   # GitHub Actions annotation
+            level = "error" if order[r["verdict"]] >= order.get(fail_on, 99) else "warning"
+            print(f"::{level} file={p}::afscan {r['verdict']}: {rules}")
+        elif not gh:
             print(f"{r['verdict']:7} {rules:40} {p}")
+    if worst >= order.get(fail_on, 99):
+        sys.exit(1)
+
+
+def cli():
+    main(sys.argv[1:])
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    cli()

@@ -1,0 +1,19 @@
+kind,platform,blobs,origins
+agent,github.com,234741,121884
+agent,other,1403,772
+agent,gitlab.com,694,351
+agent,bitbucket.org,285,273
+agent,self-hosted gitlab,273,217
+agent,codeberg.org,223,64
+config,github.com,139730,785100
+config,gitlab.com,2672,4398
+config,bitbucket.org,999,1116
+config,other,973,837
+config,self-hosted gitlab,164,191
+config,codeberg.org,114,108
+hop,github.com,117951,82850
+hop,other,426,229
+hop,gitlab.com,379,339
+hop,bitbucket.org,116,103
+hop,self-hosted gitlab,109,64
+hop,codeberg.org,58,24

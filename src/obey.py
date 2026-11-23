@@ -332,9 +332,16 @@ def agent_cmd(agent: str, prompt: str, worker: int):
                 "--auth-type", "openai", "--openai-base-url", "http://127.0.0.1:11434/v1", "--openai-api-key", "ollama",
                 "-m", LOCAL_MODEL]
         return argv, env, "QWEN.md"
+    if agent == "cursor":   # Cursor CLI, default allowlist approval mode (no --force): edits run, commands need approval
+        vdir = max((CURSOR_DIR / "versions").glob("20*"), key=lambda p: p.name)
+        env["CURSOR_INVOKED_AS"] = "agent"
+        argv = [str(vdir / "node.exe"), str(vdir / "index.js"), "-p", prompt, "--output-format", "stream-json",
+                "--trust"]
+        return argv, env, "AGENTS.md"   # Cursor reads AGENTS.md as project rules, like Codex and Kilo
     raise ValueError(agent)
 
 
+CURSOR_DIR = pathlib.Path(os.environ.get("LOCALAPPDATA", "")) / "cursor-agent"
 LOCAL_MODEL = "qwen3:8b"
 GOOSE_EXE = pathlib.Path(os.environ.get("LOCALAPPDATA", "")) / ("Microsoft/WinGet/Packages/AgenticAIFoundation.gooseCLI_"
                                                                "Microsoft.Winget.Source_8wekyb3d8bbwe/goose-package/goose.exe")
@@ -437,6 +444,23 @@ def parse(agent: str, path: pathlib.Path) -> dict:
                     finals.append(it["text"])
             elif o.get("type") in ("error", "turn.failed"):
                 error = json.dumps(o, ensure_ascii=False)[:300]
+        elif agent == "cursor":   # Claude-like stream-json; tool calls are {<name>ToolCall: {args, result}}
+            t = o.get("type")
+            if t == "system" and o.get("subtype") == "init":
+                model = o.get("model", "")
+            elif t == "assistant":
+                for b in o.get("message", {}).get("content", []):
+                    if b.get("type") == "text" and b.get("text", "").strip():
+                        finals.append(b["text"])
+            elif t == "tool_call" and o.get("subtype") == "completed":
+                tc = o.get("tool_call", {}) or {}
+                for k, v in tc.items():
+                    if k.endswith("ToolCall") and isinstance(v, dict):
+                        calls.append((k[:-8], json.dumps(v.get("args", {}), ensure_ascii=False)))
+                        if "rejected" in (v.get("result") or {}):
+                            denied += 1
+            elif t == "result" and o.get("is_error"):
+                error = str(o.get("result") or o.get("subtype"))[:300]
         elif agent == "goose":   # stream-json sends text token by token, grouped by message id
             m = o.get("message") or {}
             for b in m.get("content", []) if m.get("role") == "assistant" else []:
